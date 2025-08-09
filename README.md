@@ -88,6 +88,7 @@ federation({
     './Header': './src/export-header.ts',
     './Sidebar': './src/export-sidebar.ts',
     './types': './src/exports/types.ts',
+    './theme': './src/exports/theme.ts',
   },
   shared: ['react', 'react-dom'],
 })
@@ -115,6 +116,7 @@ federation({
 import Header from 'shared/Header'
 import { AppSidebar, SidebarProvider, SidebarInset } from 'shared/Sidebar'
 import type { MenuItem } from 'shared/types'
+import { ThemeProvider } from 'shared/theme'
 ```
 
 ### 2. メニュー項目の定義
@@ -133,20 +135,46 @@ const menuItems: MenuItem[] = [
 ### 3. コンポーネントの使用
 
 ```typescript
-<SidebarProvider>
-  <AppSidebar 
-    onNavigate={handleNavigate} 
-    menuItems={menuItems} 
-    appName="App1 Admin" 
-  />
-  <SidebarInset>
-    <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-    <main className="flex-1 p-6">
-      <Outlet />
-    </main>
-  </SidebarInset>
-</SidebarProvider>
+<ThemeProvider>
+  <SidebarProvider>
+    <AppSidebar 
+      onNavigate={handleNavigate} 
+      menuItems={menuItems} 
+      appName="App1 Admin" 
+    />
+    <SidebarInset>
+      <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      <main className="flex-1 p-6">
+        <Outlet />
+      </main>
+    </SidebarInset>
+  </SidebarProvider>
+</ThemeProvider>
 ```
+
+## 🎨 テーマ機能
+
+共有されたHeaderコンポーネントには、ライト/ダークモードを切り替えるテーマ機能が含まれています。
+
+### テーマの使用
+
+```typescript
+import { ThemeProvider, useTheme } from 'shared/theme'
+
+// アプリケーションのルートでThemeProviderでラップ
+<ThemeProvider>
+  {/* アプリケーションコンテンツ */}
+</ThemeProvider>
+
+// コンポーネント内でテーマを使用
+const { theme, toggleTheme } = useTheme()
+```
+
+### 特徴
+
+- LocalStorageにテーマ設定を保存
+- 自動的にHTML要素にクラスを適用（light/dark）
+- 各アプリケーション間でテーマ設定は独立
 
 ## 📝 型定義の共有
 

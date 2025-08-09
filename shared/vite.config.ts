@@ -16,6 +16,7 @@ export default defineConfig({
         './Header': './src/export-header.ts',
         './Sidebar': './src/export-sidebar.ts',
         './types': './src/exports/types.ts',
+        './theme': './src/exports/theme.ts',
       },
       shared: ['react', 'react-dom'],
     })

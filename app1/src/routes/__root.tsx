@@ -6,6 +6,7 @@ import { Home, LayoutDashboard, User, Settings, Users, BarChart } from 'lucide-r
 import Header from 'shared/Header'
 import { AppSidebar, SidebarProvider, SidebarInset } from 'shared/Sidebar'
 import type { MenuItem } from 'shared/types'
+import { ThemeProvider } from 'shared/theme'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -54,15 +55,17 @@ function RootComponent() {
   }
 
   return (
-    <SidebarProvider>
-      <AppSidebar onNavigate={handleNavigate} menuItems={menuItems} appName="App1 Admin" />
-      <SidebarInset>
-        <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="flex-1 p-6">
-          <Outlet />
-        </main>
-        <TanStackRouterDevtools />
-      </SidebarInset>
-    </SidebarProvider>
+    <ThemeProvider>
+      <SidebarProvider>
+        <AppSidebar onNavigate={handleNavigate} menuItems={menuItems} appName="App1 Admin" />
+        <SidebarInset>
+          <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+          <main className="flex-1 p-6">
+            <Outlet />
+          </main>
+          <TanStackRouterDevtools />
+        </SidebarInset>
+      </SidebarProvider>
+    </ThemeProvider>
   )
 }
