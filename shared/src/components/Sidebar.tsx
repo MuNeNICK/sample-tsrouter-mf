@@ -10,21 +10,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
 } from "./ui/sidebar"
 import { Button } from "./ui/button"
-
-export interface MenuItem {
-  title: string
-  icon: React.ReactNode
-  href: string
-}
-
-interface AppSidebarProps {
-  onNavigate?: (href: string) => void
-  menuItems?: MenuItem[]
-}
+import type { AppSidebarProps } from "../types"
 
 export function AppSidebar({ onNavigate, menuItems = [] }: AppSidebarProps) {
   return (

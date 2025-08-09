@@ -1,10 +1,7 @@
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Menu, Search } from "lucide-react"
-
-interface HeaderProps {
-  onMenuClick?: () => void
-}
+import { HeaderProps } from "../types"
 
 export default function Header({ onMenuClick }: HeaderProps) {
   return (

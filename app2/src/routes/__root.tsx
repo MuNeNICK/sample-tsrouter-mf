@@ -1,11 +1,11 @@
 import { Outlet, createRootRoute, useNavigate } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { useState } from 'react'
-import { Home, LayoutDashboard, User, Settings, Users, BarChart } from 'lucide-react'
+import { Home, FileText, Package, ShoppingCart, Users, Settings } from 'lucide-react'
 
 import Header from 'shared/Header'
 import { AppSidebar, SidebarProvider, SidebarInset } from 'shared/Sidebar'
-import type { MenuItem } from 'shared/Sidebar'
+import type { MenuItem } from 'shared/types'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -22,24 +22,24 @@ function RootComponent() {
       href: "/",
     },
     {
-      title: "Dashboard",
-      icon: <LayoutDashboard className="h-4 w-4" />,
-      href: "/dashboard",
+      title: "Reports",
+      icon: <FileText className="h-4 w-4" />,
+      href: "/reports",
     },
     {
-      title: "Profile",
-      icon: <User className="h-4 w-4" />,
-      href: "/profile",
+      title: "Inventory",
+      icon: <Package className="h-4 w-4" />,
+      href: "/inventory",
     },
     {
-      title: "Analytics",
-      icon: <BarChart className="h-4 w-4" />,
-      href: "/analytics",
+      title: "Orders",
+      icon: <ShoppingCart className="h-4 w-4" />,
+      href: "/orders",
     },
     {
-      title: "Team",
+      title: "Customers",
       icon: <Users className="h-4 w-4" />,
-      href: "/team",
+      href: "/customers",
     },
     {
       title: "Settings",
