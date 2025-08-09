@@ -180,7 +180,7 @@ export * from '../types'
 
 ```bash
 # Vite + React + TypeScriptテンプレートを使用
-npm create vite@latest app3 -- --template react-ts
+npx create-tsrouter-app@latest app3 --template file-router --tailwind --add-ons shadcn
 cd app3
 npm install
 ```
@@ -188,7 +188,6 @@ npm install
 ### 2. 必要な依存関係の追加
 
 ```bash
-npm install @tanstack/react-router @tanstack/router-plugin lucide-react
 npm install -D @originjs/vite-plugin-federation
 ```
 
