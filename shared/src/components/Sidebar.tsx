@@ -14,11 +14,11 @@ import {
 import { Button } from "./ui/button"
 import type { AppSidebarProps } from "../types"
 
-export function AppSidebar({ onNavigate, menuItems = [] }: AppSidebarProps) {
+export function AppSidebar({ onNavigate, menuItems = [], appName = "Navigation" }: AppSidebarProps) {
   return (
     <Sidebar>
       <SidebarHeader className="border-b px-6 py-3">
-        <h2 className="text-lg font-semibold">Navigation</h2>
+        <h2 className="text-lg font-semibold">{appName}</h2>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

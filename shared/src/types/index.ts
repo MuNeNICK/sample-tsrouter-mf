@@ -13,6 +13,7 @@ export interface HeaderProps {
 export interface AppSidebarProps {
   onNavigate?: (href: string) => void
   menuItems?: MenuItem[]
+  appName?: string
 }
 
 export interface SidebarProviderProps {

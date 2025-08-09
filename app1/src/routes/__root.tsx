@@ -55,7 +55,7 @@ function RootComponent() {
 
   return (
     <SidebarProvider>
-      <AppSidebar onNavigate={handleNavigate} menuItems={menuItems} />
+      <AppSidebar onNavigate={handleNavigate} menuItems={menuItems} appName="App1 Admin" />
       <SidebarInset>
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
         <main className="flex-1 p-6">
