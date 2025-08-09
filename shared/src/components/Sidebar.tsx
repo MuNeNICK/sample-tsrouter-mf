@@ -1,4 +1,4 @@
-import { Home, FileText, Settings, Users, BarChart, HelpCircle } from "lucide-react"
+import { HelpCircle } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -15,45 +15,18 @@ import {
 } from "./ui/sidebar"
 import { Button } from "./ui/button"
 
-interface MenuItem {
+export interface MenuItem {
   title: string
   icon: React.ReactNode
   href: string
 }
 
-const menuItems: MenuItem[] = [
-  {
-    title: "Home",
-    icon: <Home className="h-4 w-4" />,
-    href: "/",
-  },
-  {
-    title: "Documents",
-    icon: <FileText className="h-4 w-4" />,
-    href: "/documents",
-  },
-  {
-    title: "Analytics",
-    icon: <BarChart className="h-4 w-4" />,
-    href: "/analytics",
-  },
-  {
-    title: "Team",
-    icon: <Users className="h-4 w-4" />,
-    href: "/team",
-  },
-  {
-    title: "Settings",
-    icon: <Settings className="h-4 w-4" />,
-    href: "/settings",
-  },
-]
-
 interface AppSidebarProps {
   onNavigate?: (href: string) => void
+  menuItems?: MenuItem[]
 }
 
-export function AppSidebar({ onNavigate }: AppSidebarProps) {
+export function AppSidebar({ onNavigate, menuItems = [] }: AppSidebarProps) {
   return (
     <Sidebar>
       <SidebarHeader className="border-b px-6 py-3">
