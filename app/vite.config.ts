@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-
+import federation from '@originjs/vite-plugin-federation'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
-import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,14 +11,26 @@ export default defineConfig({
     TanStackRouterVite({ autoCodeSplitting: true }),
     viteReact(),
     tailwindcss(),
+    federation({
+      name: 'app',
+      remotes: {
+        shared: 'http://localhost:4173/assets/remoteEntry.js',
+      },
+      shared: ['react', 'react-dom'],
+    })
   ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
+  build: {
+    modulePreload: false,
+    target: 'esnext',
+    minify: false,
+    cssCodeSplit: false,
+  },
+  server: {
+    port: 3000,
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 })
