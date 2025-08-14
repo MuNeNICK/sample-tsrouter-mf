@@ -17,9 +17,11 @@
     
     "start": "npm run dev",
     
-    "build": "npm run build:shared && npm run build:app1 && npm run build:app2",
+    "build": "npm run build:shared && npm run preview:shared & sleep 5 && npm run build:apps && kill $!",
     "build:shared": "cd shared && npm run build",
+    "build:apps": "npm run build:app1 && npm run build:app2",
     "build:app1": "cd app1 && npm run build",
-    "build:app2": "cd app2 && npm run build"
+    "build:app2": "cd app2 && npm run build",
+    "preview:shared": "cd shared && npm run preview"
   }
 }
