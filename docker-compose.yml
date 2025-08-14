@@ -1,0 +1,54 @@
+
+services:
+  # Shared モジュール
+  shared:
+    build:
+      context: ./shared
+      dockerfile: Dockerfile
+    container_name: mf-shared
+    ports:
+      - "4173:4173"
+    networks:
+      - module-federation
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:4173/assets/remoteEntry.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # App1
+  app1:
+    build:
+      context: ./app1
+      dockerfile: Dockerfile
+      args:
+        - VITE_SHARED_URL=http://127.0.0.1:4173/assets/remoteEntry.js
+    container_name: mf-app1
+    ports:
+      - "3000:3000"
+    depends_on:
+      shared:
+        condition: service_healthy
+    networks:
+      - module-federation
+
+  # App2
+  app2:
+    build:
+      context: ./app2
+      dockerfile: Dockerfile
+      args:
+        - VITE_SHARED_URL=http://127.0.0.1:4173/assets/remoteEntry.js
+    container_name: mf-app2
+    ports:
+      - "3001:3001"
+    depends_on:
+      shared:
+        condition: service_healthy
+    networks:
+      - module-federation
+
+networks:
+  module-federation:
+    driver: bridge
