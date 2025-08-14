@@ -154,7 +154,7 @@ const menuItems: MenuItem[] = [
     <AppSidebar 
       onNavigate={handleNavigate} 
       menuItems={menuItems} 
-      appName="App1 Admin" 
+      appName="Admin Panel" 
     />
     <SidebarInset>
       <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
