@@ -40,16 +40,14 @@
 
 ```bash
 # 各モジュールの依存関係をインストール
-cd shared && npm install && cd ..
-cd app1 && npm install && cd ..
-cd app2 && npm install && cd ..
+npm run install:all
 ```
 
 ### 開発サーバーの起動
 
 ```bash
 # 全てのアプリケーションを一括起動
-./start.sh
+npm run dev
 ```
 
 個別に起動する場合：
@@ -315,16 +313,20 @@ const menuItems: MenuItem[] = [
 @mf-types
 ```
 
-### 7. start.shへの追加
+### 7. package.jsonへの追加
 
-```bash
-# start.shに新しいアプリケーションを追加
-echo "Starting app3 project in dev mode..."
-cd app3 && npm run dev &
-APP3_PID=$!
-
-# trap行も更新
-trap "kill $SHARED_PID $PREVIEW_PID $APP1_PID $APP2_PID $APP3_PID 2>/dev/null; exit" INT
+```json
+// ルートディレクトリのpackage.jsonのscriptsセクションに追加
+{
+  "scripts": {
+    "install:app3": "cd app3 && npm install",
+    "install:all": "npm run install:shared && npm run install:app1 && npm run install:app2 && npm run install:app3",
+    "dev:app3": "sleep 8 && cd app3 && npm run dev",
+    "dev": "npm run dev:shared:build & npm run dev:shared:preview & npm run dev:app1 & npm run dev:app2 & npm run dev:app3 & wait",
+    "build:app3": "cd app3 && npm run build",
+    "build": "npm run build:shared && npm run build:app1 && npm run build:app2 && npm run build:app3"
+  }
+}
 ```
 
 ## ベストプラクティス

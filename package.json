@@ -1,0 +1,25 @@
+{
+  "name": "tsrouter-module-federation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TanStack Router + Module Federation検証",
+  "scripts": {
+    "install:all": "npm run install:shared && npm run install:app1 && npm run install:app2",
+    "install:shared": "cd shared && npm install",
+    "install:app1": "cd app1 && npm install",
+    "install:app2": "cd app2 && npm install",
+    
+    "dev": "npm run dev:shared:build & npm run dev:shared:preview & npm run dev:app1 & npm run dev:app2 & wait",
+    "dev:shared:build": "cd shared && npm run build -- --watch",
+    "dev:shared:preview": "sleep 5 && cd shared && npm run preview",
+    "dev:app1": "sleep 8 && cd app1 && npm run dev",
+    "dev:app2": "sleep 8 && cd app2 && npm run dev",
+    
+    "start": "npm run dev",
+    
+    "build": "npm run build:shared && npm run build:app1 && npm run build:app2",
+    "build:shared": "cd shared && npm run build",
+    "build:app1": "cd app1 && npm run build",
+    "build:app2": "cd app2 && npm run build"
+  }
+}
