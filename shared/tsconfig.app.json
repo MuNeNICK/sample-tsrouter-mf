@@ -26,8 +26,9 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "*": ["./@mf-types/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "@mf-types"]
 }

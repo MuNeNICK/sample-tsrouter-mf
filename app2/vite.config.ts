@@ -4,6 +4,18 @@ import tailwindcss from '@tailwindcss/vite'
 import federation from '@originjs/vite-plugin-federation'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import { resolve } from 'node:path'
+import { NativeFederationTypeScriptHost } from '@module-federation/native-federation-typescript/vite'
+
+// Module federation configuration
+const federationConfig = {
+  name: 'app2',
+  filename: 'remoteEntry.js',
+  remotes: {
+    shared: 'http://localhost:4173/assets/remoteEntry.js',
+  },
+  exposes: {},
+  shared: ['react', 'react-dom'],
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,12 +23,9 @@ export default defineConfig({
     TanStackRouterVite({ autoCodeSplitting: true }),
     viteReact(),
     tailwindcss(),
-    federation({
-      name: 'app2',
-      remotes: {
-        shared: 'http://localhost:4173/assets/remoteEntry.js',
-      },
-      shared: ['react', 'react-dom'],
+    federation(federationConfig),
+    NativeFederationTypeScriptHost({
+      moduleFederationConfig: federationConfig,
     })
   ],
   build: {
@@ -27,10 +36,6 @@ export default defineConfig({
   },
   server: {
     port: 3001,
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
   },
   resolve: {
     alias: {
