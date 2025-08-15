@@ -1,6 +1,6 @@
 
 services:
-  # Shared モジュール
+  # Shared module
   shared:
     build:
       context: ./shared

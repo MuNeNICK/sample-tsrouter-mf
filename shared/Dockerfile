@@ -1,46 +1,31 @@
-# ビルドステージ
+# Build stage
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# パッケージファイルをコピー
+# Copy package files
 COPY package*.json ./
 
-# 依存関係をインストール
+# Install dependencies
 RUN npm ci
 
-# ソースコードをコピー
+# Copy source code
 COPY . .
 
-# ビルド実行
+# Build
 RUN npm run build
 
-# 本番ステージ
+# Production stage
 FROM nginx:alpine
 
-# Nginxの設定ファイルを作成
-RUN echo 'server { \
-    listen 4173; \
-    server_name localhost; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-        add_header Access-Control-Allow-Origin *; \
-    } \
-    \
-    location /assets { \
-        add_header Cache-Control "public, max-age=31536000, immutable"; \
-        add_header Access-Control-Allow-Origin *; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+# Copy Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# ビルド成果物をコピー
+# Copy build artifacts
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# ポート4173を公開
+# Expose port 4173
 EXPOSE 4173
 
-# Nginxを起動
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

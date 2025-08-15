@@ -2,7 +2,7 @@
   "name": "tsrouter-module-federation",
   "version": "1.0.0",
   "private": true,
-  "description": "TanStack Router + Module Federation検証",
+  "description": "TanStack Router + Module Federation verification",
   "scripts": {
     "install:all": "npm run install:shared && npm run install:app1 && npm run install:app2",
     "install:shared": "cd shared && npm install",
