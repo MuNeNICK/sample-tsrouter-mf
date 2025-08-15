@@ -23,7 +23,7 @@ services:
       context: ./app1
       dockerfile: Dockerfile
       args:
-        - VITE_SHARED_URL=http://127.0.0.1:4173/assets/remoteEntry.js
+        - VITE_SHARED_URL=http://localhost:4173/assets/remoteEntry.js
     container_name: mf-app1
     ports:
       - "3000:3000"
@@ -39,7 +39,7 @@ services:
       context: ./app2
       dockerfile: Dockerfile
       args:
-        - VITE_SHARED_URL=http://127.0.0.1:4173/assets/remoteEntry.js
+        - VITE_SHARED_URL=http://localhost:4173/assets/remoteEntry.js
     container_name: mf-app2
     ports:
       - "3001:3001"

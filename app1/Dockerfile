@@ -3,8 +3,8 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Set build-time environment variables
-ARG VITE_SHARED_URL=http://shared:4173/assets/remoteEntry.js
+# Set build-time environment variables (no default)
+ARG VITE_SHARED_URL
 ENV VITE_SHARED_URL=$VITE_SHARED_URL
 
 # Copy package files

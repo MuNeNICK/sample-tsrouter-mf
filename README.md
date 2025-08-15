@@ -67,6 +67,55 @@ cd app2
 npm run dev
 ```
 
+## Dockerでの起動
+
+Dockerイメージと`docker-compose.yml`を利用して、3つのサービス（`shared`/`app1`/`app2`）をまとめて起動できます。
+
+### コンテナ構成
+
+- **shared**: ポート`4173`（`remoteEntry.js`と`@mf-types.zip`を配信、CORS許可）
+- **app1**: ポート`3000`（SPA、Nginxで配信）
+- **app2**: ポート`3001`（SPA、Nginxで配信）
+
+### ビルドと起動
+
+```bash
+# 初回またはDockerfile更新時
+docker compose build
+
+# 起動（バックグラウンド）
+docker compose up -d
+
+# アクセスURL
+# shared: http://localhost:4173
+# app1  : http://localhost:3000
+# app2  : http://localhost:3001
+```
+
+停止・削除:
+
+```bash
+docker compose down
+```
+
+### リモートエントリーURL（VITE_SHARED_URL）
+
+- `app1`/`app2`のDockerfileはビルド時引数`VITE_SHARED_URL`を参照します（デフォルトは設定していません）。
+- `docker-compose.yml`で以下のように指定しています：
+  - `http://localhost:4173/assets/remoteEntry.js`
+- ブラウザからの解決性を重視し、`localhost`で固定しています。
+
+### ヘルスチェックと起動順
+
+- `shared`には`/assets/remoteEntry.js`へのHTTPヘルスチェックが設定されています。
+- `app1`/`app2`は`shared`の`service_healthy`を待って起動します。
+
+### 本番配信
+
+- 3サービスともビルド成果物をNginxで配信します（SPA用の`try_files`設定、`/assets`は長期キャッシュ）。
+- `shared`は`/@mf-types.zip`のリライトと`Access-Control-Allow-Origin: *`を付与しています。
+
+
 ## Module Federation設定
 
 ### Sharedモジュール（プロバイダー）
